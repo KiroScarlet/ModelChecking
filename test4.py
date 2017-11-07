@@ -14,3 +14,4 @@ t = [['l1', 'True', 'x=2*x', 'l2']]
 
 s = list(itertools.product(loc, *var))  #状态s是loc和所有变量的笛卡尔积
 
+print(s)

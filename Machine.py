@@ -31,7 +31,7 @@ t = [['select', 'nsoda>0', 'sget', 'start'],
 
 s = list(itertools.product(loc, *var))  # 状态s是loc和所有变量的笛卡尔积
 
-f=open('/home/kiroscarlet/桌面/test111.dot','w')
+f=open('/home/kiroscarlet/ModelChecking/test.dot','w')#改成自己的文件夹
 f.write('digraph G { \n')
 
 for i in s:
