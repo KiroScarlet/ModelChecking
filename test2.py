@@ -1,5 +1,10 @@
-Effect(coin,n)=n[]
-Effect(ret_coin,n)=n[]
-Effect(sget,n)=n[nsoda=nsoda-1]
-Effect(bget,n)=n[nbeer=nbeer-1]
-Effect(refill,n)=n[nsoda=2,nbeer=2]
+a = ['r','e','m']
+n=0
+for i in a :
+    exec(i+'=2')
+    a[n]=exec(i)
+    n=n+1
+print(a)
+var=['nsoda', ' nbeer']
+for l in var:
+    exec(i+'=')
