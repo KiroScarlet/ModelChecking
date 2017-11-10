@@ -5,14 +5,15 @@ nsoda = {0,1,2}
 nbeer = {0,1,2}
 Act = {bget,sget,coin,ret_coin,refill}
 g0 = {nsoda==2 and nbeer==2}
-Effect(coin,n)=n[]
-Effect(ret_coin,n)=n[]
-Effect(sget,n)=n[nsoda=nsoda-1]
-Effect(bget,n)=n[nbeer=nbeer-1]
-Effect(refill,n)=n[nsoda=2,nbeer=2]
-T
-(select,nsoda>0,sget,start)
-(select,nbeer>0,bget,start)
-(select,nsoda==0 and nbeer==0,ret_coin,start)
-(star,True,coin,select)
-(start,True,refill,start)
+Transtation
+    (select,nsoda>0,sget,start)
+    (select,nbeer>0,bget,start)
+    (select,nsoda==0 and nbeer==0,ret_coin,start)
+    (start,True,coin,select)
+    (start,True,refill,start)
+Effect
+    Effect(coin,n)=n
+    Effect(ret_coin,n)=n
+    Effect(sget,n)=n[nsoda=nsoda-1]
+    Effect(bget,n)=n[nbeer=nbeer-1]
+    Effect(refill,n)=n[nsoda=2;nbeer=2]

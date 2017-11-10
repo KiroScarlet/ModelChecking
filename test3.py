@@ -25,4 +25,5 @@ print(Act)
 
 g0=re.findall(r"{(.+?)}",f.readline())[0].split(",")
 print(g0)
-f.close()
+
+
