@@ -1,7 +1,6 @@
 import itertools
 import re
-
-f=open('/home/kiroscarlet/ModelChecking/machine.txt','r')#改成自己的文件夹
+f=open('/home/kiroscarlet/ModelChecking/pg1andpg2.txt','r')#改成自己的文件夹
 Loc=re.findall(r"{(.+?)}",f.readline())[0].split(",")
 # 用正则匹配截取左右大括号中的内容，以逗号为间隔分割成列表
 print(Loc)
@@ -40,7 +39,7 @@ print(t)
 
 #对于每一个Action，检索对应的对变量的操作后返回
 def Effect(act):
-    f = open('/home/kiroscarlet/ModelChecking/machine.txt', 'r')  # 改成自己的文件夹
+    f = open('/home/kiroscarlet/ModelChecking/pg1andpg2.txt', 'r')  # 改成自己的文件夹
     for i in f.readlines():
         if re.findall("Effect\("+act, i):
             act_effect = re.findall('\[(.+?)\]', i)
@@ -49,4 +48,40 @@ def Effect(act):
             else:
                 return 'True'
     f.close()
-print(Effect(Act[5]))
+
+
+s = list(itertools.product(Loc, *var))  # 状态s是loc和所有变量的笛卡尔积
+print(s)
+
+f=open('/home/kiroscarlet/ModelChecking/example.dot','w')
+f.write('digraph G { \n')
+
+for i in s:
+    for j in s:
+        for k in t:
+
+            n=0
+            for l in Var:
+                exec(l+'=i[n+1]')
+                n=n+1
+            if i[0] == k[0] and j[0] == k[3] and eval(k[1]):
+                exec(Effect(k[2]))
+                is_var=['']
+                is_var[0]=j[0]
+                for l in Var:
+                    exec('is_var.append('+l+')')
+                if is_var==list(j):
+
+                    print('%s_%d->%s_%d[label="%s"]' % (i[0], i[1], j[0], j[1], k[2]))
+                    f.write('%s_%d->%s_%d[label="%s"]' % (i[0], i[1], j[0], j[1], k[2]))
+                    f.write('\n')
+                    n = 0
+                    for l in Var:
+                        exec(l + '=i[n+1]')
+                        n = n + 1
+                    if eval(g0[0]) and i[0] == Loc0[0]:
+                        print("%s_%d[peripheries=2]" % (i[0], i[1]))  #两个圈表示节点是初始状态
+                        f.write("%s_%d[peripheries=2]" % (i[0], i[1]))
+                        f.write('\n')
+f.write('}')
+f.close()

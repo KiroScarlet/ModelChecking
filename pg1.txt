@@ -1,0 +1,15 @@
+Loc={n1,w1,c1}
+Loc0={n1}
+Var={y}
+y={0,1}
+Act={a,b,c}
+g0={y==1}
+Transtation
+    (n1,True,a,w1)
+    (w1,y>0,b,c1)
+    (c1,True,c,n1)
+Effect
+    Effect(a,n)=n 
+    Effect(b,n)=n[y=y-1]
+    Effect(c,n)=n[y=y+1]
+

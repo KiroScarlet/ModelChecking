@@ -72,16 +72,16 @@ for i in s:
                     exec('is_var.append('+l+')')
                 if is_var==list(j):
 
-                    print('%s%d%d->%s%d%d[label="%s"]' % (i[0], i[1], i[2], j[0], j[1], j[2], k[2]))
-                    f.write('%s%d%d->%s%d%d[label="%s"]' % (i[0], i[1], i[2], j[0], j[1], j[2], k[2]))
+                    print('%s_%d_%d->%s_%d_%d[label="%s"]' % (i[0], i[1], i[2], j[0], j[1], j[2], k[2]))
+                    f.write('%s_%d_%d->%s_%d_%d[label="%s"]' % (i[0], i[1], i[2], j[0], j[1], j[2], k[2]))
                     f.write('\n')
                     n = 0
                     for l in Var:
                         exec(l + '=i[n+1]')
                         n = n + 1
                     if eval(g0[0]) and i[0] == Loc0[0]:
-                        print("%s%d%d[peripheries=2]" % (i[0], i[1], i[2]))  #两个圈表示节点是初始状态
-                        f.write("%s%d%d[peripheries=2]" % (i[0], i[1], i[2]))
+                        print("%s_%d_%d[peripheries=2]" % (i[0], i[1], i[2]))  #两个圈表示节点是初始状态
+                        f.write("%s_%d_%d[peripheries=2]" % (i[0], i[1], i[2]))
                         f.write('\n')
 f.write('}')
 f.close()
