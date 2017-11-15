@@ -1,6 +1,9 @@
 import itertools
 import re
-f=open('/home/kiroscarlet/ModelChecking/pg1.txt','r')#改成自己的文件夹
+
+def read_file(f):
+    return re.findall(r"{(.+?)}",f.readline())[0].split(",")
+f=open(input("请输入文件1："),'r')#改成自己的文件夹
 Loc1=re.findall(r"{(.+?)}",f.readline())[0].split(",")
 # 用正则匹配截取左右大括号中的内容，以逗号为间隔分割成列表
 print(Loc1)
@@ -48,7 +51,7 @@ print(Effect1)
 f.close()
 print(t1)
 
-f=open('/home/kiroscarlet/ModelChecking/pg2.txt','r')#改成自己的文件夹
+f=open(input("请输入文件2："),'r')#改成自己的文件夹
 Loc2=re.findall(r"{(.+?)}",f.readline())[0].split(",")
 # 用正则匹配截取左右大括号中的内容，以逗号为间隔分割成列表
 print(Loc2)
@@ -109,7 +112,7 @@ print(Loc)
 Loc0=Cartesian(Loc01,Loc02)
 print(Loc0)
 
-f=open('/home/kiroscarlet/ModelChecking/pg1andpg2.txt','w')
+f=open('/home/kiroscarlet/ModelChecking/test2.txt','w')
 f.write('Loc=')
 write_list(Loc,f)
 
