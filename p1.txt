@@ -1,0 +1,15 @@
+Loc={n1,w1,c1}
+Loc0={n1}
+Var={b1,x}
+b1={1,0}
+x={1,2}
+Act={n1_to_w1,w1_to_c1,c1_to_n1}
+g0={x==1 or x==2}
+Transtation
+    (n1,True,n1_to_w1,w1)
+    (w1,x==1 or b2==0,w1_to_c1,c1)
+    (c1,True,c1_to_n1,n1)
+Effect
+    Effect(n1_to_w1,n)=n[b1=1;x=2]
+    Effect(w1_to_c1,n)=n
+    Effect(c1_to_n1,n)=n[b1=0]

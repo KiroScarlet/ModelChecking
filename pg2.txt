@@ -12,4 +12,3 @@ Effect
     Effect(a,n)=n 
     Effect(b,n)=n[y=y-1]
     Effect(c,n)=n[y=y+1]
-

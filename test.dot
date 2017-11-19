@@ -1,35 +1,24 @@
 digraph G { 
-start_0_0->start_2_2[label="refill"]
-start_0_0->select_0_0[label="coin"]
-start_0_1->start_2_2[label="refill"]
-start_0_1->select_0_1[label="coin"]
-start_0_2->start_2_2[label="refill"]
-start_0_2->select_0_2[label="coin"]
-start_1_0->start_2_2[label="refill"]
-start_1_0->select_1_0[label="coin"]
-start_1_1->start_2_2[label="refill"]
-start_1_1->select_1_1[label="coin"]
-start_1_2->start_2_2[label="refill"]
-start_1_2->select_1_2[label="coin"]
-start_2_0->start_2_2[label="refill"]
-start_2_0->select_2_0[label="coin"]
-start_2_1->start_2_2[label="refill"]
-start_2_1->select_2_1[label="coin"]
-start_2_2->start_2_2[label="refill"]
-start_2_2[peripheries=2]
-start_2_2->select_2_2[label="coin"]
-start_2_2[peripheries=2]
-select_0_0->start_0_0[label="ret_coin"]
-select_0_1->start_0_0[label="bget"]
-select_0_2->start_0_1[label="bget"]
-select_1_0->start_0_0[label="sget"]
-select_1_1->start_0_1[label="sget"]
-select_1_1->start_1_0[label="bget"]
-select_1_2->start_0_2[label="sget"]
-select_1_2->start_1_1[label="bget"]
-select_2_0->start_1_0[label="sget"]
-select_2_1->start_1_1[label="sget"]
-select_2_1->start_2_0[label="bget"]
-select_2_2->start_1_2[label="sget"]
-select_2_2->start_2_1[label="bget"]
+0[label = "c1,w2,y=0"]
+1[label = "n1,c2,y=0"]
+2[label = "w1,n2,y=1"]
+3[label = "c1,n2,y=0"]
+4[label = "w1,c2,y=0"]
+5[label = "n1,n2,y=1",peripheries=2]
+6[label = "n1,w2,y=1"]
+7[label = "w1,w2,y=1"]
+5->6
+5->2
+6->1
+6->7
+1->5
+1->4
+2->7
+2->3
+7->4
+7->0
+4->2
+3->5
+3->0
+0->6
 }
