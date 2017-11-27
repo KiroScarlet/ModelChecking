@@ -4,7 +4,7 @@ Var={y}
 y={0,1}
 Act={a,b,c}
 g0={y==1}
-Transtation
+Transition
     (n1,True,a,w1)
     (w1,y>0,b,c1)
     (c1,True,c,n1)

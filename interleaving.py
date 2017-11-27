@@ -10,7 +10,7 @@ def effect_read(f,Effect):#读取Effect函数，并以行数组的形式保存�
             break
         Effect.append(line)
 
-f=open(p[0]),'r')#对文件1进行读取
+f=open(input("文件1"),'r')#对文件1进行读取
 
 Loc1=read(f)
 Loc01=read(f)
@@ -38,7 +38,7 @@ effect_read(f,Effect1)
 
 f.close()
 
-f=open(p[1],'r')#对文件2进行读取
+f=open(input("文件2"),'r')#对文件2进行读取
 
 Loc2=read(f)
 Loc02=read(f)
@@ -88,18 +88,20 @@ def varMerge(Var,Var1,Var2,var,var1,var2):#对变量合并，相同变量只保�
         i=i+1
         j=j+1
 
-def transtationMerge(t,t1,t2):#合并转移关系
+def transtationMerge(t,t1,t2,Loc1,Loc2):#合并转移关系
     for i in t1:
-        for j in t2:
+        for j in Loc2:
+            print(i,j)
             temp=i[:]
-            temp[0]=i[0]+'_'+j[0]
-            temp[3]=i[3]+'_'+j[0]
+            temp[0]=i[0]+'_'+j
+            temp[3]=i[3]+'_'+j
             t.append(temp)
     for i in t2:
-        for j in t1:
+        for j in Loc1:
+            print(i, j)
             temp = i[:]
-            temp[0] = j[0] + '_' + i[0]
-            temp[3] = j[0] + '_' + i[3]
+            temp[0] = j + '_' + i[0]
+            temp[3] = j + '_' + i[3]
             t.append(temp)
 
 f=open('/home/kiroscarlet/ModelChecking/test2.txt','w')#对两个程序并行操作后，写入新的文件
@@ -132,8 +134,10 @@ f.write('g0=')
 write_list(g0,f)
 
 f.write('Translation\n')
+
 t=[]
-transtationMerge(t,t1,t2)
+transtationMerge(t,t1,t2,Loc1,Loc2)
+print(t)
 for i in t:
     f.write(r'    (')
     for j in i[0:-1]:

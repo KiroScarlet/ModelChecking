@@ -1,0 +1,14 @@
+Loc={l1_l2,l1_l2p,l1p_l2,l1p_l2p}
+Loc0={l1_l2}
+Var={x}
+x={1,2,3,4,5,6,7,8,9}
+Act={l1_to_l1p,l2_to_l2p}
+g0={(x==3) and (x==3)}
+Transition
+    (l1_l2,True,l1_to_l1p,l1p_l2)
+    (l1_l2p,True,l1_to_l1p,l1p_l2p)
+    (l1_l2,True,l2_to_l2p,l1_l2p)
+    (l1p_l2,True,l2_to_l2p,l1p_l2p)
+Effect
+    Effect(l1_to_l1p,n)=n[x=2*x]
+    Effect(l2_to_l2p,n)=n[x=x+1]

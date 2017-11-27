@@ -5,7 +5,7 @@ nsoda={0,1,2}
 nbeer={0,1,2}
 Act={bget,sget,coin,ret_coin,refill}
 g0={nsoda==2 and nbeer==2}
-Transtation
+Transition
     (select,nsoda>0,sget,start)
     (select,nbeer>0,bget,start)
     (select,nsoda==0 and nbeer==0,ret_coin,start)

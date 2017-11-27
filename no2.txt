@@ -1,15 +1,17 @@
-Loc={n2,w2,c2}
+Loc={n2,r2,w2,c2}
 Loc0={n2}
 Var={b2,x}
 b2={1,0}
 x={1,2}
-Act={n2_to_w2,w2_to_c2,c2_to_n2}
+Act={n2_to_r2,r2_to_w2,w2_to_c2,c2_to_n2}
 g0={x==1 or x==2}
 Transition
-    (n2,True,n2_to_w2,w2)
+    (n2,True,n2_to_r2,r2)
+    (r2,True,r2_to_w2,w2)
     (w2,x==2 or b1==0,w2_to_c2,c2)
     (c2,True,c2_to_n2,n2)
 Effect
-    Effect(n2_to_w2,n)=n[b2=1;x=1]
+    Effect(n2_to_r2,n)=n[x=1]
+    Effect(r2_to_w2,n)=n[b2=1]
     Effect(w2_to_c2,n)=n
     Effect(c2_to_n2,n)=n[b2=0]
