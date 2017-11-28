@@ -40,11 +40,11 @@ Transition
     (w1_c2,True,c2_to_n2,w1_n2)
     (c1_c2,True,c2_to_n2,c1_n2)
 Effect
-    Effect(n1_to_r1,n)=n[b1=1]
-    Effect(r1_to_w1,n)=n[x=2]
+    Effect(n1_to_r1,n)=n[x=2]
+    Effect(r1_to_w1,n)=n[b1=1]
     Effect(w1_to_c1,n)=n
     Effect(c1_to_n1,n)=n[b1=0]
-    Effect(n2_to_r2,n)=n[b2=1]
-    Effect(r2_to_w2,n)=n[x=1]
+    Effect(n2_to_r2,n)=n[x=1]
+    Effect(r2_to_w2,n)=n[b2=1]
     Effect(w2_to_c2,n)=n
     Effect(c2_to_n2,n)=n[b2=0]

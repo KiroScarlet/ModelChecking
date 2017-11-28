@@ -208,17 +208,19 @@ def make_graph(p):
     tmp=set()
     for i in node:
         tmp.add(i)
+
     while len(tmp)!=0:
+        print(tmp)
+        add_node = set()
         for i in tmp:
-            add.node=set()
-            for j in set(s)-node:
+
+            for j in s:
                 for k in t:
-                    print(i,j)
                     n = 1
                     for l in Var:  # 对每一个变量赋值
                         exec(l + '=i[n]')
                         n = n + 1
-
+                    #print(i,j,k)
                     if i[0] == k[0] and j[0] == k[3] and eval(k[1]):
                         exec(Effect(k[2]))
                         is_var = ['']
@@ -227,10 +229,15 @@ def make_graph(p):
                             exec('is_var.append(' + l + ')')
                         if is_var == list(j):
                             result.append([i, j, k[2], 1])  # 暂时以四元祖的形式存储下来
-
                             if (j in node)==False:
                                 add_node.add(j)
-        tmp=
+
+        node=node|tmp
+        print(node)
+
+        tmp = set()
+        for i in add_node:
+            tmp.add(i)
 
     d = {}  # 建立一个字典，用于输出格式
     node_list = list(node)

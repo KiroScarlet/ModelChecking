@@ -194,79 +194,70 @@ def make_graph(p):
     f=open('/home/kiroscarlet/ModelChecking/test.dot','w')
     f.write('digraph G { \n')
     result=[]#此列表用来存储结果
-    init_node=set()#此集合用来存储
+    node=[]#此集合用来存储可达的结点
     for i in s:
-        for j in s:
-            for k in t:
-
-                n=1
-                for l in Var:  #对每一个变量赋值
-                    exec(l+'=i[n]')
-                    n=n+1
-
-                if i[0] == k[0] and j[0] == k[3] and eval(k[1]):
-                    exec(Effect(k[2]))
-                    is_var=['']
-                    is_var[0]=j[0]
-                    for l in Var:
-                        exec('is_var.append('+l+')')
-                    if is_var==list(j):
-                        result.append([i,j,k[2],0])#暂时以四元祖的形式存储下来
-
-                        n = 1
-                        for l in Var:
-                            exec(l + '=i[n]')
-                            n = n + 1
-                        if eval(g0[0]) and i[0] == Loc0[0]:
-                            init_node.add(i) #把初始状态添加到可达结点集合中
-
-    node=set()
-    for i in init_node:
-        node.add(i)
-    while True:#将可达状态加入集合node中
-        n=0
-        for i in result:
-            if (i[0] in node) and i[3]==0:#把可达状态关联的边的状态位标记为1
-                i[3]=1
-                n=n+1
-                node.add(i[1])
-        if n==0:
-            break
-
-    d={}#建立一个字典，用于输出格式
-    node_list=list(node)
-    for i in range(len(node_list)):
-        d[str(i)]=node_list[i]
-
-    for i in range(len(d)):#输出每个结点
-        i=str(i)
-        f.write(i)
-        f.write(r'[label = "')
-        list = (d[i][0].split('_'))
-        for j in list:
-            f.write(j + ',')
-        for j in range(len(Var)-1):
-            f.write("%s=%d,"%(Var[j],d[i][j+1]))
-        f.write('%s=%d"'%(Var[-1],d[i][-1]))
-        n=1
-        for l in Var:
-            exec(l+'=d[i][n]')
+        n = 1
+        for l in Var:  # 对每一个变量赋值
+            exec(l + '=i[n]')
             n = n + 1
-        if eval(g0[0]) and d[i][0] == Loc0[0]:
-            f.write(",peripheries=2")#输出初始状态，两个圈表示节点是初始状态
-        f.write(']\n')
+        if eval(g0[0]) and i[0] == Loc0[0]:
+            node.append(i)  # 把初始状态添加到可达结点集合中
 
-    di = {v:k for k,v in d.items()}#字典反转
+    tmp=node[:]
+    while len(tmp)!=0:
+        add_node = []
+        for i in tmp:
+            for j in s:
+                for k in t:
+                    n = 1
+                    for l in Var:  # 对每一个变量赋值
+                        exec(l + '=i[n]')
+                        n = n + 1
+                    if i[0] == k[0] and j[0] == k[3] and eval(k[1]):
+                        exec(Effect(k[2]))
+                        is_var = ['']
+                        is_var[0] = j[0]
+                        for l in Var:
+                            exec('is_var.append(' + l + ')')
+                        if is_var == list(j):
+                            result.append([i, j, k[2]])  # 暂时以3元祖的形式存储下来
+                            if (j in node)==False and (j in add_node) ==False:
+                                add_node.append(j)
 
-    f.write(r'{rank=min;')
-    for i in init_node:
-        f.write(di[i]+';')
-    f.write('}\n')
+        f.write(r'{rank=same;')
+        for i in tmp:
+            f.write(r'"')
+            location = (i[0].split('_'))
+            for j in location:
+                f.write(j + ',')
+            for j in range(len(Var) - 1):
+                f.write("%s=%d," % (Var[j], i[j + 1]))
+            f.write('%s=%d";' % (Var[-1], i[-1]))
+        f.write('}\n')
+
+        for i in tmp:
+            if (i in node)==False:
+                node.append(i)
+
+        tmp = add_node[:]
+
 
     for i in result:
-        if i[3]==1:#状态位为1表示此边关联结点是可达的
-            n=len(i[0])
-            f.write('%s->%s\n' % (di[i[0]],di[i[1]]))
+        f.write(r'{"')
+        location = (i[0][0].split('_'))
+        for j in location:
+            f.write(j + ',')
+        for j in range(len(Var) - 1):
+            f.write("%s=%d," % (Var[j], i[0][j + 1]))
+        f.write('%s=%d"' % (Var[-1], i[0][-1]))
+        f.write(r'}->{"')
+        location = (i[1][0].split('_'))
+        for j in location:
+            f.write(j + ',')
+        for j in range(len(Var) - 1):
+            f.write("%s=%d," % (Var[j], i[1][j + 1]))
+        f.write('%s=%d"' % (Var[-1], i[1][-1]))
+        f.write('}\n')
 
     f.write('}')
     f.close()
@@ -280,4 +271,3 @@ while len(p)>1:  #只要输入文件数不为1,则两两interleaving，得出最
     p[0]="test.txt"
     del  p[1]
 make_graph(p)
-
