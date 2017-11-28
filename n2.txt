@@ -4,7 +4,7 @@ Var={b2,x}
 b2={1,0}
 x={1,2}
 Act={n2_to_r2,r2_to_w2,w2_to_c2,c2_to_n2}
-g0={x==1 or x==2}
+g0={b2==0}
 Transition
     (n2,True,n2_to_r2,r2)
     (r2,True,r2_to_w2,w2)

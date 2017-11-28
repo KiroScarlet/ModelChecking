@@ -191,10 +191,10 @@ def make_graph(p):
     global list
     s = list(itertools.product(Loc, *var))  #状态s是loc和所有变量的笛卡尔积
 
-    f=open('/home/kiroscarlet/桌面/test.dot','w')
+    f=open('/home/kiroscarlet/ModelChecking/test.dot','w')
     f.write('digraph G { \n')
     result=[]#此列表用来存储结果
-    node=set()#此集合用来存储可达的结点
+    init_node=set()#此集合用来存储
     for i in s:
         for j in s:
             for k in t:
@@ -218,8 +218,11 @@ def make_graph(p):
                             exec(l + '=i[n]')
                             n = n + 1
                         if eval(g0[0]) and i[0] == Loc0[0]:
-                            node.add(i) #把初始状态添加到可达结点集合中
+                            init_node.add(i) #把初始状态添加到可达结点集合中
 
+    node=set()
+    for i in init_node:
+        node.add(i)
     while True:#将可达状态加入集合node中
         n=0
         for i in result:
@@ -254,6 +257,12 @@ def make_graph(p):
         f.write(']\n')
 
     di = {v:k for k,v in d.items()}#字典反转
+
+    f.write(r'{rank=min;')
+    for i in init_node:
+        f.write(di[i]+';')
+    f.write('}\n')
+
     for i in result:
         if i[3]==1:#状态位为1表示此边关联结点是可达的
             n=len(i[0])
