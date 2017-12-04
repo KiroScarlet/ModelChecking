@@ -1,0 +1,9 @@
+digraph G { 
+{rank=same;"l1,l2,x=3";}
+{rank=same;"l1,l2p,x=4";"l1p,l2,x=6";}
+{rank=same;"l1p,l2p,x=8";"l1p,l2p,x=7";}
+{"l1,l2,x=3"}->{"l1,l2p,x=4"}
+{"l1,l2,x=3"}->{"l1p,l2,x=6"}
+{"l1,l2p,x=4"}->{"l1p,l2p,x=8"}
+{"l1p,l2,x=6"}->{"l1p,l2p,x=7"}
+}
